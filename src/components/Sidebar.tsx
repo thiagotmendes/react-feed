@@ -7,7 +7,7 @@ export function Sidebar() {
     <aside className={styles.sidebar}>
       <img src="https://www.michaelpage.com.au/sites/michaelpage.com.au/files/2022-01/Software%20Developer.jpg" alt="" className={styles.cover} />
       <div className={styles.profile}>
-        <Avatar src="https://github.com/thiagotmendes.png" />
+        <Avatar hasBorder src="https://github.com/thiagotmendes.png" />
         <strong> Thiago Mendes </strong>
         <span>Developer</span>
       </div>
