@@ -18,14 +18,8 @@ export function App() {
           <Sidebar />
         </aside>
         <main className="">
-          <Post
-            author="Thiago Mendes"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque officia dignissimos alias nostrum tempora ratione illo nam saepe earum totam ipsam possimus, commodi dolores itaque provident dolorum molestiae quod nesciunt."
-          />
-          <Post
-            author="Abel Braga"
-            content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque officia dignissimos alias nostrum tempora ratione illo nam saepe earum totam ipsam possimus, commodi dolores itaque provident dolorum molestiae quod nesciunt."
-          />
+          <Post />
+          <Post />
         </main>
       </div>
     </div>
