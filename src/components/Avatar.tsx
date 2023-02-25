@@ -1,6 +1,6 @@
 import styles from "./Avatar.module.css";
 
-export function Avatar({ hasBorder = true, src }: { hasBorder: Boolean, src: String }) {
+export function Avatar({ hasBorder = true, src }: { hasBorder: boolean, src: string }) {
   return (
     <img
       src={src}
