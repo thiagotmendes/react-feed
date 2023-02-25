@@ -1,12 +1,13 @@
 import styles from "./Sidebar.module.css"
 import { PencilLine } from 'phosphor-react'
+import { Avatar } from "./Avatar"
 
 export function Sidebar() {
     return (
         <aside className={styles.sidebar}>
             <img src="https://www.michaelpage.com.au/sites/michaelpage.com.au/files/2022-01/Software%20Developer.jpg" alt="" className={styles.cover} />
             <div className={styles.profile}>
-                <img src="https://github.com/thiagotmendes.png" alt="" className={styles.avatar} />
+                <Avatar src="https://github.com/thiagotmendes.png" />
                 <strong> Thiago Mendes </strong>
                 <span>Developer</span>
             </div>
