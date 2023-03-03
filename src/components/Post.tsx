@@ -3,12 +3,12 @@ import { Comment } from "./Comment"
 import { Avatar } from "./Avatar"
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
-import { useState } from "react";
+import { JSXElementConstructor, ReactElement, ReactFragment, useState } from "react";
 
 type PostProps = {
-  author: {};
+  author: { avatarUrl: string, name: string, role: string };
   publishedAt: Date;
-  content: {}
+  content: { link: string, content: string }
 }
 
 export function Post(props: PostProps) {
@@ -48,15 +48,13 @@ export function Post(props: PostProps) {
         </time>
       </header>
       <div className={styles.content}>
-        {
-          content.map(line => {
-            if (line.type == "paragraph") {
-              return <p>{line.content}</p>
-            } else if (line.type === "link") {
-              return <p><a>{line.content}</a></p>
-            }
-          })
-        }
+        {content.map((line: { type: string, content: string }) => {
+          if (line.type == "paragraph") {
+            return <p>{line.content}</p>
+          } else if (line.type === "link") {
+            return <p><a>{line.content}</a></p>
+          }
+        })}
         <p>Fala galeraa 👋</p>
         <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
         <p>👉 jane.design/doctorcare </p>
