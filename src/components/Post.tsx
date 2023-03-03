@@ -6,9 +6,9 @@ import ptBR from "date-fns/locale/pt-BR";
 import { useState } from "react";
 
 type PostProps = {
-  author: Array<String>;
+  author: {};
   publishedAt: Date;
-  content: Array<String>
+  content: {}
 }
 
 export function Post(props: PostProps) {
