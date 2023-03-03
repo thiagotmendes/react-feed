@@ -8,7 +8,7 @@ import { JSXElementConstructor, ReactElement, ReactFragment, useState } from "re
 type PostProps = {
   author: { avatarUrl: string, name: string, role: string };
   publishedAt: Date;
-  content: { link: string, content: string }
+  content: [type: string, content: string]
 }
 
 export function Post(props: PostProps) {
@@ -55,10 +55,6 @@ export function Post(props: PostProps) {
             return <p><a>{line.content}</a></p>
           }
         })}
-        <p>Fala galeraa 👋</p>
-        <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-        <p>👉 jane.design/doctorcare </p>
-        <p><a href="">#novoprojeto #nlw #rocketseat</a></p>
       </div>
 
       <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
