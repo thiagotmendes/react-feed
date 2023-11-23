@@ -15,8 +15,10 @@ export function Post(props: PostProps) {
   const { author, publishedAt, content } = props;
 
   const [comments, setComment] = useState(
-    [1, 2, 3]
+    ["Um post inicial"]
   )
+
+  const [newCommentText, setNewCommentText] = useState('');
 
   const publishedDateFormat = format(publishedAt, "d 'de' LLL 'as' HH:mm'h'", {
     locale: ptBR
@@ -28,9 +30,13 @@ export function Post(props: PostProps) {
   });
 
   function handleCreateNewComment() {
-    setComment([...comments, comments.length + 1])
-    console.log(comments)
+    setComment([...comments, newCommentText])
+    setNewCommentText('')
     event?.preventDefault()
+  }
+
+  function handleNewCommentChange() {
+    setNewCommentText(event?.target.value)
   }
 
   return (
@@ -48,7 +54,7 @@ export function Post(props: PostProps) {
         </time>
       </header>
       <div className={styles.content}>
-        {content.map((line: { type: string, content: string }) => {
+        {content.map( (line) => {
           if (line.type == "paragraph") {
             return <p>{line.content}</p>
           } else if (line.type === "link") {
@@ -61,7 +67,12 @@ export function Post(props: PostProps) {
         <strong className="">
           Deixe seu comentário
         </strong>
-        <textarea placeholder="Deixe um comentário" />
+        <textarea 
+          name="comment" 
+          placeholder="Deixe um comentário" 
+          value={newCommentText}
+          onChange={handleNewCommentChange}  
+        />
         <footer>
           <button type="submit"> Comentar </button>
         </footer>
@@ -69,7 +80,7 @@ export function Post(props: PostProps) {
       <div className={styles.commentList}>
         {
           comments.map(comment => {
-            return <Comment />
+            return <Comment comment={comment} />
           })
         }
       </div>
