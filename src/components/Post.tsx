@@ -3,44 +3,53 @@ import { Comment } from "./Comment"
 import { Avatar } from "./Avatar"
 import { format, formatDistanceToNow } from "date-fns";
 import ptBR from "date-fns/locale/pt-BR";
-import { JSXElementConstructor, ReactElement, ReactFragment, useState } from "react";
+import { ChangeEvent, FormEvent, InvalidEvent, JSXElementConstructor, ReactElement, useState } from "react";
 
-type PostProps = {
-  author: { avatarUrl: string, name: string, role: string };
-  publishedAt: Date;
-  content: [type: string, content: string]
+interface Content {
+  type: 'paragraph' | 'link'; 
+  content: string
 }
 
-export function Post(props: PostProps) {
-  const { author, publishedAt, content } = props;
+export interface PostType {
+  id: number;
+  author: { avatarUrl: string, name: string, role: string };
+  publishedAt: Date;
+  content: Content[]
+}
 
+interface PostProps {
+  post: PostType
+}
+
+export function Post({ post }: PostProps) {
+ 
   const [comments, setComment] = useState(
     ["Um post inicial"]
   )
 
   const [newCommentText, setNewCommentText] = useState('');
 
-  const publishedDateFormat = format(publishedAt, "d 'de' LLL 'as' HH:mm'h'", {
+  const publishedDateFormat = format(post.publishedAt, "d 'de' LLL 'as' HH:mm'h'", {
     locale: ptBR
   })
 
-  const publishedDateRelativeNow = formatDistanceToNow(publishedAt, {
+  const publishedDateRelativeNow = formatDistanceToNow(post.publishedAt, {
     locale: ptBR,
     addSuffix: true
   });
 
-  function handleCreateNewComment() {
+  function handleCreateNewComment(event: FormEvent) {
     setComment([...comments, newCommentText])
     setNewCommentText('')
     event?.preventDefault()
   }
 
-  function handleNewCommentChange() {
+  function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
     event?.target.setCustomValidity('')
     setNewCommentText(event?.target.value)
   }
 
-  function handleNewCommentInvalid() {
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event?.target.setCustomValidity('Esse campo é obrigatório!')
   }
 
@@ -57,18 +66,18 @@ export function Post(props: PostProps) {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar hasBorder src={author.avatarUrl} />
+          <Avatar hasBorder src={post.author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>{author.name}</strong>
-            <span>{author.role}</span>
+            <strong>{post.author.name}</strong>
+            <span>{post.author.role}</span>
           </div>
         </div>
-        <time title={publishedDateFormat} dateTime={publishedAt.toISOString()}>
+        <time title={publishedDateFormat} dateTime={post.publishedAt.toISOString()}>
           {publishedDateRelativeNow}
         </time>
       </header>
       <div className={styles.content}>
-        {content.map( (line) => {
+        {post.content.map( (line) => {
           if (line.type == "paragraph") {
             return <p key={line.content}>{line.content}</p>
           } else if (line.type === "link") {
